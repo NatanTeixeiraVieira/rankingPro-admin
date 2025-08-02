@@ -1,5 +1,5 @@
-import { Data } from '../decorators/data.decorator';
-import { Entity } from './entity';
+import { Data } from '../../decorators/data.decorator';
+import { Entity } from '../entity';
 import { EventProps } from './event.entity';
 
 export type CategoryProps = {
@@ -8,6 +8,7 @@ export type CategoryProps = {
   events: EventProps[];
 };
 
+export interface Category extends Readonly<CategoryProps> {}
 export interface Category extends Readonly<CategoryProps> {}
 
 @Data()
