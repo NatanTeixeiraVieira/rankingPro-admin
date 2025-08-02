@@ -1,0 +1,20 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
+async function bootstrap() {
+  console.log(process.env.RABBITMQ_URLS);
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.RMQ,
+      options: {
+        urls: process.env.RABBITMQ_URLS?.split(','),
+        queue: 'admin',
+      },
+    },
+  );
+
+  await app.listen();
+}
+bootstrap();
