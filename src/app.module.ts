@@ -1,15 +1,11 @@
+import { DatabaseModule } from './infra/database/database.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { EnvConfigServiceModule } from './infra/env-config-service/env-config-service.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env.development', '.env.production'],
-    }),
-  ],
+  imports: [EnvConfigServiceModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
