@@ -1,5 +1,5 @@
 import { Data } from '@/domain/decorators/data.decorator';
-import { Entity } from '../entity';
+import { RootEntity } from '../root-entity';
 
 export type PlayerProps = {
   phoneNumber: string;
@@ -12,4 +12,4 @@ export type PlayerProps = {
 };
 
 @Data()
-export class Player extends Entity<PlayerProps> {}
+export class Player extends RootEntity<PlayerProps> {}

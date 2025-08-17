@@ -1,7 +1,7 @@
-import { Entity, BaseProps } from '@/domain/entities/entity';
+import { RootEntity, BaseProps } from '@/domain/entities/root-entity';
 
 export abstract class OutputMapper<
-  E extends Entity<BaseProps>,
+  E extends RootEntity<BaseProps>,
   Output extends object,
 > {
   toOutput(entity: E): Output {

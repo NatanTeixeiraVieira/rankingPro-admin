@@ -57,7 +57,7 @@ export const dataSourceOptions: DataSourceOptions = {
   database: envConfigService.getDbName(),
   schema: envConfigService.getDbSchema(),
   entities: [path.resolve(__dirname, './schemas/**/*.schema.{ts,js}')],
-  migrations: [path.join(__dirname, './migrations/**/*.schema.{ts,js}')],
+  migrations: [path.join(__dirname, './migrations/**/*.{ts,js}')],
   synchronize: false,
   migrationsRun: false,
 };

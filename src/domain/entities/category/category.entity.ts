@@ -1,11 +1,11 @@
 import { Data } from '../../decorators/data.decorator';
-import { Entity } from '../entity';
-import { EventProps } from './event.entity';
+import { RootEntity } from '../root-entity';
+import { Event } from './event.entity';
 
 export type CategoryProps = {
   name: string;
   description: string;
-  events: EventProps[];
+  events: Event[];
 };
 
 export type CreateCategoryProps = {
@@ -21,11 +21,14 @@ export type CreateCategoryProps = {
 export interface Category extends Readonly<CategoryProps> {}
 
 @Data()
-export class Category extends Entity<CategoryProps> {
+export class Category extends RootEntity<CategoryProps> {
   static create(props: CreateCategoryProps): Category {
-    Category.validate(props);
-    return new Category(props);
+    const entities: CategoryProps = {
+      ...props,
+      events: props.events.map(
+        ({ name, operation, value }) => new Event({ name, operation, value }),
+      ),
+    };
+    return new Category(entities);
   }
-
-  private static validate(props: CategoryProps) {}
 }

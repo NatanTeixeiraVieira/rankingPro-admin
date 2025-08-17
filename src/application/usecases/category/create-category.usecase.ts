@@ -2,10 +2,11 @@ import { CategoryRepository } from '@/domain/repositories/category.repository';
 import {
   CategoryOutput,
   CategoryOutputMapper,
-} from '../outputs/category.output';
-import { UseCase } from './use-case';
+} from '../../outputs/category.output';
+import { UseCase } from '../use-case';
 import { Category } from '@/domain/entities/category/category.entity';
-import { UnitOfWork } from '../unit-of-work/unit-of-work';
+import { UnitOfWork } from '../../unit-of-work/unit-of-work';
+import { LoggerService } from '@/application/logger/logger.service';
 
 type EventInput = {
   name: string;
@@ -26,17 +27,22 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
     private readonly categoryRepository: CategoryRepository,
     private readonly outputMapper: CategoryOutputMapper,
     private readonly uow: UnitOfWork,
+    private readonly loggerService: LoggerService,
   ) {}
 
-  async execute({ description, events, category }: Input): Promise<Output> {
-    return this.uow.execute(async () => {
+  async execute(input: Input): Promise<Output> {
+    this.loggerService.setContext(CreateCategoryUseCase.name);
+    this.loggerService.log('input: ', JSON.stringify(input));
+
+    const { category, description, events } = input;
+    return await this.uow.execute(async () => {
       const categoryEntity = Category.create({
         name: category,
         description,
         events,
       });
 
-      await this.categoryRepository.create(categoryEntity);
+      // await this.categoryRepository.create(categoryEntity);
 
       return this.outputMapper.toOutput(categoryEntity);
     });
