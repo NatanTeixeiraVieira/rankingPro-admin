@@ -20,6 +20,8 @@ export class CategorySchema extends Schema {
   })
   description: string;
 
-  @OneToMany(() => EventSchema, (event) => event.category)
+  @OneToMany(() => EventSchema, (event) => event.category, {
+    cascade: ['insert', 'update'],
+  })
   events: EventSchema[];
 }

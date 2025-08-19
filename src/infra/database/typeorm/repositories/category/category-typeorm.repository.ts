@@ -14,6 +14,6 @@ export class CategoryTypeormRepository implements CategoryRepository {
 
   async create(category: Category): Promise<void> {
     const schema = this.categoryTypeormRepositoryMapper.toSchema(category);
-    await this.categoryRepository.insert(schema);
+    await this.categoryRepository.save(schema);
   }
 }

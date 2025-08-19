@@ -32,7 +32,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
 
   async execute(input: Input): Promise<Output> {
     this.loggerService.setContext(CreateCategoryUseCase.name);
-    this.loggerService.log('input: ', JSON.stringify(input));
+    this.loggerService.log(`input: ${JSON.stringify(input)}`);
 
     const { category, description, events } = input;
     return await this.uow.execute(async () => {
@@ -42,7 +42,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
         events,
       });
 
-      // await this.categoryRepository.create(categoryEntity);
+      await this.categoryRepository.create(categoryEntity);
 
       return this.outputMapper.toOutput(categoryEntity);
     });
