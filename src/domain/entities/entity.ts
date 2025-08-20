@@ -43,7 +43,7 @@ export abstract class Entity<Props extends BaseProps> {
    *
    * @this {new (props: Props & EntityProps) => Ent} - The constructor of the subclass that calls this method.
    */
-  static with<Props extends BaseProps, Ent extends RootEntity<Props>>(
+  static with<Props extends BaseProps, Ent extends Entity<Props>>(
     this: new (props: Props & EntityProps) => Ent,
     props: Props & EntityProps,
   ): Ent {

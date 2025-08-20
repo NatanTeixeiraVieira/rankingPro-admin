@@ -1,4 +1,4 @@
-import { Category } from "../category.entity"
+import { Category } from "../../category.entity"
 
 describe('Category Entity', () => {
   let sut: Category
