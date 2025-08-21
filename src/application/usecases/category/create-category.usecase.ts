@@ -25,7 +25,7 @@ type Output = CategoryOutput;
 export class CreateCategoryUseCase implements UseCase<Input, Output> {
   constructor(
     private readonly categoryRepository: CategoryRepository,
-    private readonly outputMapper: CategoryOutputMapper,
+    private readonly categoryOutputMapper: CategoryOutputMapper,
     private readonly uow: UnitOfWork,
     private readonly loggerService: LoggerService,
   ) {}
@@ -44,7 +44,7 @@ export class CreateCategoryUseCase implements UseCase<Input, Output> {
 
       await this.categoryRepository.create(categoryEntity);
 
-      return this.outputMapper.toOutput(categoryEntity);
+      return this.categoryOutputMapper.toOutput(categoryEntity);
     });
   }
 }

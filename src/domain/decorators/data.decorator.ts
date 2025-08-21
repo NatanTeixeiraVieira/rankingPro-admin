@@ -12,12 +12,10 @@
  * }
  */
 export function Data() {
-  // biome-ignore lint/suspicious/noExplicitAny: Required for constructor type flexibility
   return <T extends { new (...args: any[]): { props: unknown } }>(
     target: T,
   ) => {
     return class extends target {
-      // biome-ignore lint/suspicious/noExplicitAny: Needed for constructor parameter flexibility
       constructor(...args: any[]) {
         super(...args);
         this.createAccessors();
@@ -34,15 +32,11 @@ export function Data() {
       createAccessors() {
         const props = this.props as Record<string, unknown>;
 
-        // biome-ignore lint/complexity/noForEach: More readable than for-of for this use case
         Object.keys(props).forEach((key) => {
           Object.defineProperty(this, key, {
             get: function () {
               return this.props[key];
             },
-            // set: function (value: unknown) {
-            //   this.props[key] = value;
-            // },
             enumerable: true,
             configurable: true,
           });
